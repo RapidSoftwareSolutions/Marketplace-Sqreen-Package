@@ -1,0 +1,78 @@
+{
+    "package": "Sqreen",
+    "tagline": "Sqreen API",
+    "description": "The Sqreen API allows you to tap into our extensive knowledge base to discover security risks hiding in your own data. Find out whether that email address is from an anonymizing service, or that IP address is a Tor exit point. You can even find out if the address has been implicated in a past security attack.",
+    "image": "https://logo.clearbit.com/sqreen.io",
+    "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-Sqreen-Package",
+    "keywords": [
+        "API",
+        "sqreen",
+        "security",
+        "email",
+        "ip"
+    ],
+    "accounts": {
+        "domain": "https://www.sqreen.io/",
+        "credentials": [
+            "apiKey"
+        ]
+    },
+    "steps": [
+        "Sign in https://www.sqreen.io/",
+        "Register a new app - https://my.sqreen.io/new-application",
+        "Navigate to Settings -> API",
+        "Copy your API Key"
+    ],
+    "blocks": [
+        {
+            "name": "analyzeEmail",
+            "description": "Use this endpoint to uncover more information about an email address. Sqreen has an extensive database of known attackers, as well as analysis on an email address's origins. Discover whether this email address is from an anonymizing service, or was used in an attack, and use this data to make policy decisions based on how risky we assess the email address to be.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "info": "The email address.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://api.sqreen.io/v1/emails/{$data['email']}",
+                "method": "get",
+                "headers": {
+                    "X-API-Key": "{$data['apiKey']}"
+                }
+            }
+        },
+        {
+            "name": "analyzeIp",
+            "description": "Use this endpoint to uncover more information about an IP address. Sqreen has an extensive database of known attackers, as well as analysis on who or what an IP address belongs to. Discover whether this IP address is a Tor exit point or was used in an attack, and use this data to make policy decisions based on how risky we assess the IP address to be.",
+            "args": [
+                {
+                    "name": "apiKey",
+                    "type": "credentials",
+                    "info": "Your API key",
+                    "required": true
+                },
+                {
+                    "name": "ip",
+                    "type": "String",
+                    "info": "The IP address.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://api.sqreen.io/v1/ips/{$data['ip']}",
+                "method": "get",
+                "headers": {
+                    "X-API-Key": "{$data['apiKey']}"
+                }
+            }
+        }
+    ]
+}
